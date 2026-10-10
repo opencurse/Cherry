@@ -1,6 +1,6 @@
-# Cherry Blossom Falling Animation
+# Cherry Blossom Animation
 
-A full-screen, photorealistic cherry blossom falling effect built with Three.js and transparent petal texture cutouts. The effect uses layered depth, variable wind, fluttering motion, and responsive performance tuning to match the supplied reference style without blocking interaction.
+A photorealistic cherry blossom falling effect built with Three.js and transparent petal texture cutouts. The effect uses layered depth, variable wind, fluttering motion and responsive performance tuning to match the supplied reference style without blocking interaction.
 
 ## Features
 
@@ -68,4 +68,3 @@ petal-16.svg
 - The canvas is fixed full-screen and uses `pointer-events: none` so it does not block UI elements.
 - Rendering pauses when the tab is hidden and reduces motion when `prefers-reduced-motion` is enabled.
 - The project uses a capped device pixel ratio and adaptive petal counts to stay smooth on mobile devices.
-
