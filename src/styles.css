@@ -1,0 +1,43 @@
+:root {
+  color-scheme: light;
+  --page-bg: #ffffff;
+  --petal-pink: #f7b7d4;
+  --petal-deep: #d980a9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+  background: var(--page-bg);
+}
+
+body {
+  overflow: hidden;
+  font-family: Inter, "Segoe UI", sans-serif;
+  background: #fff;
+}
+
+#scene {
+  display: block;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  background: linear-gradient(180deg, #ffffff 0%, #fffafc 100%);
+  touch-action: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #scene {
+    opacity: 0.95;
+  }
+}

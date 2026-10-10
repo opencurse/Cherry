@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="g7" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="hsl(344 58% 84%)"/>
+      <stop offset="18%" stop-color="hsl(352 62% 78%)"/>
+      <stop offset="55%" stop-color="hsl(356 65% 68%)"/>
+      <stop offset="100%" stop-color="hsl(362 60% 58%)"/>
+    </linearGradient>
+    <radialGradient id="gl7" cx="28%" cy="28%" r="72%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.59)"/>
+      <stop offset="35%" stop-color="rgba(255,255,255,0.14)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </radialGradient>
+    <filter id="soft7" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="0.8"/>
+    </filter>
+  </defs>
+  <g transform="translate(256 256) rotate(66)">
+    <path d="M 0 -165
+      C 78 -186, 170 -131, 144 -35
+      C 179 38, 98 132, 0 183
+      C -82 131, -168 41, -146 -36
+      C -179 -133, -75 -185, 0 -165 Z"
+          fill="url(#g7)" opacity="0.98"/>
+    <path d="M 0 -150
+      C 48 -145, 88 -85, 64 -20
+      C 78 46, 35 102, 0 142
+      C -34 102, -78 46, -63 -20
+      C -90 -83, -46 -146, 0 -150 Z"
+          fill="url(#gl7)" opacity="0.38"/>
+    <path d="M 0 -160 C 12 -85, 12 -30, 6 14 C 14 60, 2 108, 0 160" fill="none" stroke="rgba(255,255,255,0.38)" stroke-width="9" stroke-linecap="round"/>
+    <path d="M 0 -160 C -18 -105, -18 -30, -8 20 C -16 58, -3 116, 0 160" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="7" stroke-linecap="round"/>
+    <path d="M 0 -150 C 24 -120, 39 -80, 42 -34 C 44 14, 35 75, 0 128" fill="none" stroke="rgba(210,90,145,0.33999999999999997)" stroke-width="7" stroke-linecap="round"/>
+    <path d="M 0 -150 C -22 -118, -37 -80, -34 -30 C -32 18, -39 74, 0 128" fill="none" stroke="rgba(185,80,130,0.33)" stroke-width="6" stroke-linecap="round"/>
+    <path d="M 4 -160 C 67 -142, 104 -105, 118 -70 C 105 -72, 82 -95, 62 -110" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="6" stroke-linecap="round"/>
+    <path d="M -4 -160 C -67 -142, -104 -105, -120 -70 C -110 -72, -80 -90, -62 -108" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="5" stroke-linecap="round"/>
+    <ellipse cx="-8" cy="-42" rx="98" ry="36" fill="rgba(255,255,255,0.08)" transform="rotate(-12 -8 -42)" filter="url(#soft7)"/>
+    <ellipse cx="10" cy="36" rx="90" ry="24" fill="rgba(255,255,255,0.08)" transform="rotate(14 10 36)" filter="url(#soft7)"/>
+  </g>
+</svg>
