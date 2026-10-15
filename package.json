@@ -1,18 +1,17 @@
 {
   "name": "cherry",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.2",
   "type": "module",
+  "author": "Yash",
+  "license": "MIT",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 3000",
     "build": "vite build",
     "typecheck": "vue-tsc --noEmit",
     "preview": "vite preview --host 0.0.0.0 --port 4173"
   },
-  "dependencies": {
-    "three": "^0.173.0",
-    "vue": "^3.5.13"
-  },
+  "dependencies": { "three": "^0.173.0", "vue": "^3.5.13" },
   "devDependencies": {
     "@playwright/test": "^1.64.0",
     "@types/node": "^22.20.5",
