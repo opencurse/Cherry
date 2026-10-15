@@ -6,7 +6,7 @@ import { defineConfig, type Plugin } from 'vite';
 
 function generatedHtmlEntry(): Plugin {
   return {
-    name: 'generated-html-entry',
+    name: 'entry',
     configureServer(server) {
       server.middlewares.use((request, response, next) => {
         if (request.url?.split('?')[0] !== '/') {
