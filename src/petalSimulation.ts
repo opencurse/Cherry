@@ -1,12 +1,24 @@
 import * as THREE from 'three';
-import { createWindPhysics } from './windPhysics.js';
+import { createWindPhysics } from './windPhysics';
 
-function makePetalTexture(seed = 0) {
+type PetalLayer = 'far' | 'mid' | 'near';
+
+interface Petal {
+  sprite: THREE.Sprite;
+  layer: PetalLayer;
+  velocity: THREE.Vector3;
+  spin: THREE.Vector3;
+  seed: number;
+}
+
+function makePetalTexture(seed = 0): THREE.CanvasTexture {
   const size = 512;
   const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = size;
   const ctx = canvas.getContext('2d');
+
+  if (!ctx) throw new Error('Unable to create a 2D canvas context');
 
   ctx.clearRect(0, 0, size, size);
   ctx.translate(size / 2, size / 2);
@@ -61,7 +73,17 @@ function makePetalTexture(seed = 0) {
 }
 
 export class PetalSimulation {
-  constructor(canvas) {
+  private readonly canvas: HTMLCanvasElement;
+  private readonly renderer: THREE.WebGLRenderer;
+  private readonly scene: THREE.Scene;
+  private readonly camera: THREE.PerspectiveCamera;
+  private readonly petals: Petal[] = [];
+  private readonly wind = createWindPhysics();
+  private readonly mouseInfluence = new THREE.Vector2();
+  private lastFrame = 0;
+  private elapsed = 0;
+
+  constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     this.renderer = new THREE.WebGLRenderer({
       canvas,
@@ -79,11 +101,6 @@ export class PetalSimulation {
     this.camera.position.set(0, 0, 12);
     this.camera.lookAt(0, 0, 0);
 
-    this.petals = [];
-    this.wind = createWindPhysics();
-    this.lastFrame = 0;
-    this.elapsed = 0;
-    this.mouseInfluence = new THREE.Vector2();
     this.resize = this.resize.bind(this);
     this.animate = this.animate.bind(this);
     this.handleVisibility = this.handleVisibility.bind(this);
@@ -91,24 +108,24 @@ export class PetalSimulation {
     this.bindEvents();
   }
 
-  bindEvents() {
+  private bindEvents(): void {
     window.addEventListener('resize', this.resize, { passive: true });
     document.addEventListener('visibilitychange', this.handleVisibility);
-    window.addEventListener('pointermove', (event) => {
+    window.addEventListener('pointermove', (event: PointerEvent) => {
       this.mouseInfluence.x = (event.clientX / window.innerWidth - 0.5) * 2;
       this.mouseInfluence.y = (event.clientY / window.innerHeight - 0.5) * 2;
     }, { passive: true });
   }
 
-  async init() {
+  async init(): Promise<void> {
     const textureSet = Array.from({ length: 16 }, (_, i) => makePetalTexture(i));
     this.setupPetals(textureSet);
     this.resize();
     this.start();
   }
 
-  setupPetals(textureSet) {
-    const layers = [
+  private setupPetals(textureSet: THREE.CanvasTexture[]): void {
+    const layers: { name: PetalLayer; count: number; opacity: number }[] = [
       { name: 'far', count: 28, opacity: 0.42 },
       { name: 'mid', count: 42, opacity: 0.68 },
       { name: 'near', count: 58, opacity: 0.92 },
@@ -127,7 +144,6 @@ export class PetalSimulation {
 
         const sprite = new THREE.Sprite(spriteMaterial);
         sprite.scale.set(0.32, 0.4, 1);
-
         sprite.position.set(
           (Math.random() - 0.5) * 16,
           6 + Math.random() * 10,
@@ -136,7 +152,6 @@ export class PetalSimulation {
         sprite.material.rotation = Math.random() * Math.PI;
 
         this.scene.add(sprite);
-
         this.petals.push({
           sprite,
           layer: layer.name,
@@ -156,7 +171,7 @@ export class PetalSimulation {
     });
   }
 
-  respawnPetal(petal) {
+  private respawnPetal(petal: Petal): void {
     petal.sprite.position.set(
       (Math.random() - 0.5) * 15,
       6 + Math.random() * 8,
@@ -170,7 +185,7 @@ export class PetalSimulation {
     petal.seed = Math.random() * Math.PI * 2;
   }
 
-  update(dt, elapsed) {
+  private update(dt: number, elapsed: number): void {
     const wind = this.wind.update(dt, elapsed);
 
     for (const petal of this.petals) {
@@ -190,7 +205,7 @@ export class PetalSimulation {
     }
   }
 
-  resize() {
+  private resize(): void {
     const width = window.innerWidth;
     const height = window.innerHeight;
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -200,12 +215,12 @@ export class PetalSimulation {
     this.camera.updateProjectionMatrix();
   }
 
-  start() {
+  private start(): void {
     this.lastFrame = performance.now() * 0.001;
     this.renderer.setAnimationLoop(this.animate);
   }
 
-  handleVisibility() {
+  private handleVisibility(): void {
     if (document.hidden) {
       this.renderer.setAnimationLoop(null);
       return;
@@ -214,7 +229,7 @@ export class PetalSimulation {
     this.renderer.setAnimationLoop(this.animate);
   }
 
-  animate(time) {
+  private animate(time: number): void {
     const seconds = time * 0.001;
     const dt = Math.min(Math.max(seconds - this.lastFrame, 0.016), 0.033);
     this.lastFrame = seconds;

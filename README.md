@@ -13,12 +13,14 @@
 
 ## Project layout
 
-- **`index.html` – app entry point**
-- **`src/main.js` – bootstraps the scene**
-- **`src/petalSimulation.js` – petal scenes, rendering, and animation updates**
-- **`src/windPhysics.js` – wind and gust simulation model**
-- **`src/styles.css` – full-viewport styling and pointer-event constraints**
-- **`public/textures/petals/` – generated petal image assets**
+- **`src/index.vue` – Vue view and canvas lifecycle**
+- **`src/main.ts` – application bootstrap**
+- **`src/petalSimulation.ts` – petal rendering and animation updates**
+- **`src/windPhysics.ts` – wind and gust simulation model**
+- **`src/styles.scss` – full-viewport styling and pointer-event constraints**
+- **`vite.config.ts` – Vue build and generated HTML entry**
+
+Vite serves the HTML entry during development and generates `dist/index.html` for deployment; no source HTML file is needed.
 
 ## Local development
 
@@ -41,6 +43,7 @@
 ## **Production build**
 
 ```bash
+npm run typecheck
 npm run build
 ```
 
