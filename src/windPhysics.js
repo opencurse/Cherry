@@ -1,10 +1,5 @@
 export function createWindPhysics() {
-  const state = {
-    windX: 0,
-    windY: 0,
-    gust: 0,
-    gustStrength: 0,
-  };
+  const state = { windX: 0, windY: 0, gust: 0, gustStrength: 0 };
 
   return {
     update(dt, elapsed) {
